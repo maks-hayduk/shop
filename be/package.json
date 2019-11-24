@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node start.js"
+    "start": "nodemon start.js"
   },
   "repository": {
     "type": "git",
@@ -14,12 +14,16 @@
   "author": "Maks Hayduk",
   "license": "ISC",
   "dependencies": {
+    "babel-polyfill": "^6.26.0",
+    "bcrypt": "^3.0.6",
     "dotenv": "^8.2.0",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1"
   },
   "devDependencies": {
     "@babel/core": "^7.6.4",
     "@babel/preset-env": "^7.6.3",
-    "@babel/register": "^7.6.2"
+    "@babel/register": "^7.6.2",
+    "nodemon": "^1.19.4"
   }
 }
