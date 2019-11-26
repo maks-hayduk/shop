@@ -22,15 +22,15 @@ class AuthService {
   }
 
   login = async (req, res) => {
-    pool.query('SELECT * FROM users WHERE email = $1', [req.body.email], async (error, results) => {
+    pool.query('SELECT * FROM users WHERE email = $1', [req.body.email], async (error, result) => {
       if (error) {
         res.status(400).send(error)
       }
-      const user = results.rows[0];
+      const user = result.rows[0];
   
       try {
         if(await bcrypt.compare(req.body.password, user.password)) {
-          let token = jwt.sign({ name: user.name }, config.secretKey ,{ expiresIn: '24h' });
+          let token = jwt.sign({ name: user.name, id: user.id }, config.secretKey ,{ expiresIn: '24h' });
   
           res.status(200).send({
             token,

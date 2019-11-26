@@ -1,6 +1,11 @@
-import AuthService from './authService';
 import pool from './dbPoolService';
 
-const authService = new AuthService();
+import AuthService from './authService';
+import ItemsService from './itemsService';
+import OrderService from './orderService';
 
-export { pool, authService };
+const authService = new AuthService();
+const itemsService = new ItemsService();
+const orderService = new OrderService();
+
+export { pool, authService, itemsService, orderService };

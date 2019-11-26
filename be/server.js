@@ -4,10 +4,11 @@ import express from 'express';
 import bodyParser from 'body-parser';
 
 import middleware from './middleware';
-import { authService, pool } from './services';
+import { pool, authService, itemsService, orderService } from './services';
 
 const app = express();
 const port = 5000;
+
 app.set('json spaces', 2);
 app.use(bodyParser.json());
 
@@ -25,9 +26,11 @@ app.get('/users', async (req, res) => {
 app.post('/users', authService.signup);
 app.post('/users/login', authService.login);
 
-app.get('/get', middleware.checkToken, (req, res) => {
-  res.send('ahahaha')
-})
+app.get('/items', itemsService.getAllItems);
+app.get('/pag/items', itemsService.getPaginationItems);
+app.post('/order/add', middleware.checkToken, itemsService.addItemToOrders);
+
+app.get('/order', middleware.checkToken, orderService.getUserOrder);
 
 app.listen(port, () => {
   console.log(`Back-end started on localhost:${port}`);
