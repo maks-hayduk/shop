@@ -61,6 +61,21 @@ class ItemsService {
       });
     })
   }
+
+  deleteItemFromOrder = (req, res) => {
+    const { id } = req.decoded;
+    const { itemId } = req.body;
+
+    pool.query('DELETE FROM orders WHERE user_id=$1 AND item_id=$2', [id, itemId], (error, result) => {
+      if (error) {
+        res.status(400).send(error);
+      }
+
+      res.status(201).send({
+        message: 'Item was deleted from your order'
+      });
+    })
+  }
 }
 
 export default ItemsService;

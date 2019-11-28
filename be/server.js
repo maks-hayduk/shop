@@ -4,7 +4,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 
 import middleware from './middleware';
-import { pool, authService, itemsService, orderService } from './services';
+import { authService, itemsService, orderService } from './services';
 
 const app = express();
 const port = 5000;
@@ -12,23 +12,14 @@ const port = 5000;
 app.set('json spaces', 2);
 app.use(bodyParser.json());
 
-app.get('/users', async (req, res) => {
-  pool.query('SELECT * FROM users ORDER BY id ASC', (error, result) => {
-    if (error) {
-      res.status(400).send(error)
-    }
-    res.status(200).send({
-      users: result.rows
-    })
-  })
-})
-
 app.post('/users', authService.signup);
 app.post('/users/login', authService.login);
 
 app.get('/items', itemsService.getAllItems);
 app.get('/pag/items', itemsService.getPaginationItems);
+
 app.post('/order/add', middleware.checkToken, itemsService.addItemToOrders);
+app.post('/order/delete', middleware.checkToken, itemsService.deleteItemFromOrder);
 
 app.get('/order', middleware.checkToken, orderService.getUserOrder);
 
