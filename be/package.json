@@ -2,14 +2,29 @@
   "name": "shop-back-end",
   "version": "1.0.0",
   "description": "Back end for the shop",
-  "main": "index.ts",
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon start.js"
   },
   "repository": {
     "type": "git",
     "url": "maks-hayduk"
   },
   "author": "Maks Hayduk",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "babel-polyfill": "^6.26.0",
+    "bcrypt": "^3.0.6",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.6.4",
+    "@babel/plugin-proposal-class-properties": "^7.7.4",
+    "@babel/preset-env": "^7.6.3",
+    "@babel/register": "^7.6.2",
+    "nodemon": "^1.19.4"
+  }
 }
