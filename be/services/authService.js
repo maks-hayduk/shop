@@ -14,10 +14,15 @@ class AuthService {
         if (error) {
           res.status(400).send(error)
         }
-        res.status(201).send('User was added')
+        
+        res.status(201).send({
+          success: true
+        })
       })
     } catch {
-      res.status(500).send()
+      res.status(500).send({
+        success: false
+      })
     }
   }
 
@@ -35,10 +40,13 @@ class AuthService {
           res.status(200).send({
             token,
             success: true,
-            message: 'Authentication successful!'
+            name: user.name, 
+            id: user.id
           })
         } else {
-          res.send('Not Allowed')
+          res.send({
+            message: 'Not allowed'
+          })
         }
       } catch {
         res.status(500).send()
