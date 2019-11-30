@@ -1,10 +1,14 @@
 import { ConnectedRouter } from 'connected-react-router';
 
 import {
-  IAuthState
+  IAuthState,
+  IItemsState,
+  IOrderState
 } from './domains';
 
 export interface IStoreState {
   router: ConnectedRouter;
-  auth: IAuthState
+  auth: IAuthState;
+  items: IItemsState;
+  order: IOrderState;
 }

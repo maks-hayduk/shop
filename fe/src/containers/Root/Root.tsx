@@ -7,7 +7,9 @@ import { RouteConsts } from 'consts';
 
 import LoginContainer from '../Login';
 import SignUpContainer from '../SignUp';
-import { HandleInitAction } from 'store';
+import DashboardContainer from '../Dashboard';
+import OrdersContainer from '../Orders';
+import { HandleInitAction, HandleLogOutAction } from 'store';
 
 const Wrapper = styled.div`
   min-height: 100vh;
@@ -17,9 +19,10 @@ const Wrapper = styled.div`
 interface IRoot {
   userName: string;
   handleInitAction: HandleInitAction;
+  handleLogOutAction: HandleLogOutAction;
 }
 
-const Root: React.FC<IRoot> = ({ userName, handleInitAction }) => {
+const Root: React.FC<IRoot> = ({ userName, handleInitAction, handleLogOutAction }) => {
 
   React.useEffect(() => {
     handleInitAction();
@@ -27,7 +30,12 @@ const Root: React.FC<IRoot> = ({ userName, handleInitAction }) => {
 
   return (
     <Wrapper>
-      <NavBarMenu userName={userName}/>
+      <NavBarMenu 
+        userName={userName} 
+        onLogOut={() => {
+          handleLogOutAction();
+        }}
+      />
       <Switch>
         <Route
           exact={true}
@@ -41,8 +49,13 @@ const Root: React.FC<IRoot> = ({ userName, handleInitAction }) => {
         />
         <Route
           exact={true}
-          path={'/'}
-          render={() => <div>hi</div>}
+          path={RouteConsts.Dashboard}
+          component={DashboardContainer}
+        />
+         <Route
+          exact={true}
+          path={RouteConsts.Order}
+          component={OrdersContainer}
         />
       </Switch>
     </Wrapper>

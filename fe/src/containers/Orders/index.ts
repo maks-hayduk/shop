@@ -1,28 +1,29 @@
-import RootContainer from './Root';
+import OrderComponent from './Orders';
 
 import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
 
 import {
-  selectUserName, IStoreState, handleInitAction, handleLogOutAction
+  IStoreState,
+  selectOrder,
+  delItemFromOrderAction
 } from 'store';
 
 const mapStateToProps = (state: IStoreState) => ({
-  userName: selectUserName(state)
+  order: selectOrder(state)
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) =>
   bindActionCreators(
     {
-      handleInitAction,
-      handleLogOutAction
+      delItemFromOrderAction
     },
     dispatch
   );
 
-export const ConnectedRootContainer = connect(
+export const OrderContainer = connect(
   mapStateToProps,
   mapDispatchToProps
-)(RootContainer);
+)(OrderComponent);
 
-export default ConnectedRootContainer;
+export default OrderContainer;

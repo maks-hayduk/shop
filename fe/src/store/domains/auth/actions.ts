@@ -7,7 +7,8 @@ import {
   AuthActionTypeKeys,
   ISignupActionType,
   ILoginActionType,
-  IGetUserDataActionType
+  IGetUserDataActionType,
+  ILogOutActionType
 } from './actionTypes';
 import * as api from './api';
 import { selectAuthToken, selectAuthSuccess } from './selectors';
@@ -23,6 +24,8 @@ export type HandleSignupAction = (name: string, email: string, password: string)
 export type HandleLoginAction = (email: string, password: string) => IThunk<void>;
 export type GetUserData = () => IGetUserDataActionType;
 export type HandleInitAction = () => IThunk<void>;
+export type LogOutAction = () => ILogOutActionType;
+export type HandleLogOutAction = () => IThunk<void>;
 
 export const signupAction: SignupAction = (name, email, password) => ({
   type: AuthActionTypeKeys.SIGNUP,
@@ -38,6 +41,16 @@ export const getUserData: GetUserData = () => ({
   type: AuthActionTypeKeys.GET_USER_DATA,
   payload: api.getUserData()
 })
+
+export const logOutAction: LogOutAction = () => ({
+  type: AuthActionTypeKeys.LOG_OUT,
+  payload: {}
+});
+
+export const handleLogOutAction: HandleLogOutAction = () => (dispatch) => {
+  dispatch(logOutAction());
+  window.localStorage.removeItem('AUTH_TOKEN');
+}
 
 export const handleSignupAction: HandleSignupAction = (
   name, 
@@ -64,14 +77,5 @@ export const handleLoginAction: HandleLoginAction = (
     setToken(token);
     dispatch(getUserData());
     dispatch(push('/'));
-  }
-}
-
-export const handleInitAction: HandleInitAction = () => (dispatch, getState) => {
-  const token = window.localStorage.getItem('AUTH_TOKEN');
-  if (token) {
-    apiClientService.setDefaultHeaders('Authorization', `${token}`);
-    console.log(token)
-    dispatch(getUserData());
   }
 }

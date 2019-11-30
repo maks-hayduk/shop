@@ -1,4 +1,6 @@
 export enum RouteConsts {
   Login = '/auth',
-  SignUp = '/signup'
+  SignUp = '/signup',
+  Dashboard = '/',
+  Order = '/order'
 }

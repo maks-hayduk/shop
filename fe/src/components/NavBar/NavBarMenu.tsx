@@ -2,10 +2,9 @@ import * as React from 'react';
 import { Formik, Form, Field } from 'formik';
 import { Link, NavLink } from 'react-router-dom';
 
-import { H2, Button, TextButton, InputField } from 'components';
+import { H2, H3, Button, TextButton, InputField } from 'components';
 import { styled } from 'theme';
 import { RouteConsts } from 'consts';
-import { H4 } from 'components/Text';
 
 const Wrapper = styled.div`
   width: 100%;
@@ -44,6 +43,14 @@ const Wrapper = styled.div`
     display: flex;
     justify-content: flex-end;
     align-items: center;
+
+    .user-name {
+      margin-right: 15px;
+    }
+
+    .your-order {
+      margin-left: 20px;
+    }
   }
 
   .text-button {
@@ -62,9 +69,10 @@ const Wrapper = styled.div`
 
 interface INavBarMenu {
   userName: string;
+  onLogOut: () => void;
 }
 
-export const NavBarMenu: React.FC<INavBarMenu> = ({ userName }) => {
+export const NavBarMenu: React.FC<INavBarMenu> = ({ userName, onLogOut }) => {
   return (
     <Wrapper>
       <div className="left-side">
@@ -88,7 +96,7 @@ export const NavBarMenu: React.FC<INavBarMenu> = ({ userName }) => {
           </Formik>
       </div>
       <div className="right-side">
-        {userName && <H4>{userName}</H4>}
+        {userName && <H3 className="user-name">{userName}</H3>}
         {!userName ? (
           <>
             <NavLink to={RouteConsts.Login}>
@@ -99,9 +107,14 @@ export const NavBarMenu: React.FC<INavBarMenu> = ({ userName }) => {
             </NavLink>
           </>
         ) : (
-          <NavLink to={'/'}>
-            <Button>Log out</Button>
-          </NavLink>
+          <>
+            <NavLink to={RouteConsts.Dashboard}>
+              <Button onClick={onLogOut}>Log out</Button>
+            </NavLink>
+            <NavLink to={RouteConsts.Order}>
+              <Button className="your-order">Your order</Button>
+            </NavLink>
+          </>
         )}
       </div>
     </Wrapper>

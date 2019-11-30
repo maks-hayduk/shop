@@ -22,6 +22,9 @@ const authReducer = (state = initialState, action: IAuthActionTypes) => {
     case AuthActionTypeKeys.GET_USER_DATA_FULFILLED:
       return state.merge(action.payload).setIn(['success'], true);
 
+    case AuthActionTypeKeys.LOG_OUT:
+      return initialState;
+
     default:
       return state;
   }

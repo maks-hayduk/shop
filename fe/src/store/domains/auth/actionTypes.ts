@@ -14,6 +14,8 @@ export enum AuthActionTypeKeys {
   GET_USER_DATA = 'auth/GET_USER_DATA',
   GET_USER_DATA_FULFILLED = 'auth/GET_USER_DATA_FULFILLED',
   GET_USER_DATA_REJECTED = 'auth/GET_USER_DATA_REJECTED',
+
+  LOG_OUT = 'auth/LOG_OUT'
 }
 
 export interface ISignupActionType
@@ -34,10 +36,14 @@ export interface IGetUserDataActionType
 export interface IGetUserDataFulfilledActionType
   extends IPromiseAction<AuthActionTypeKeys.GET_USER_DATA_FULFILLED, IUserDataResponse> {}
 
+export interface ILogOutActionType
+  extends IPromiseAction<AuthActionTypeKeys.LOG_OUT, {}> {}
+
 export type IAuthActionTypes =
   | ISignupActionType
   | ISignupFulfilledActionType
   | ILoginActionType
   | ILoginFulfilledActionType
   | IGetUserDataActionType
-  | IGetUserDataFulfilledActionType;
+  | IGetUserDataFulfilledActionType
+  | ILogOutActionType;
