@@ -8,7 +8,9 @@ class OrderService {
       if (error) {
         res.status(400).send(error);
       }
-      res.send(result.rows)
+      res.send({
+        order: result.rows
+      })
     })
   }
 }

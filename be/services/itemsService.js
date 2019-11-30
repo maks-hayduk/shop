@@ -66,7 +66,7 @@ class ItemsService {
     const { id } = req.decoded;
     const { itemId } = req.body;
 
-    pool.query('DELETE FROM orders WHERE user_id=$1 AND item_id=$2', [id, itemId], (error, result) => {
+    pool.query('DELETE FROM orders WHERE ctid IN (SELECT ctid FROM orders WHERE user_id=$1 and item_id=$2 LIMIT 1);', [id, itemId], (error, result) => {
       if (error) {
         res.status(400).send(error);
       }
