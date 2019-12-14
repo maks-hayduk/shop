@@ -47,6 +47,42 @@ class ItemsService {
     })
   }
 
+  addItem = (req, res) => {
+    const { role } = req.decoded;
+    const { name, description, price, stock } = req.body;
+    if (role !== 'admin') {
+      res.status.send('Not allowed')  
+    }
+
+    pool.query('INSERT INTO items(name, description, price, stock) VALUES ($1, $2, $3, $4)', [name, description, price, stock], (error, result) => {
+      if (error) {
+        res.status(400).send(error);
+      }
+
+      res.status(201).send({
+        message: 'Item was added'
+      });
+    })
+  }
+
+  deleteItem = (req, res) => {
+    const { itemid } = req.query;
+    const { role } = req.decoded;
+    if (role !== 'admin') {
+      res.status.send('Not allowed')  
+    }
+
+    pool.query('DELETE FROM items WHERE id=$1', [itemid], (error, result) => {
+      if (error) {
+        res.status(400).send(error);
+      }
+
+      res.status(201).send({
+        message: 'Item was deleted'
+      });
+    })
+  }
+
   addItemToOrders = (req, res) => {
     const { id } = req.decoded;
     const { itemId } = req.body;

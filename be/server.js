@@ -25,6 +25,8 @@ app.post('/users/login', authService.login);
 
 app.get('/items', itemsService.getAllItems);
 app.get('/pag/items', itemsService.getPaginationItems);
+app.post('/items/add', middleware.checkToken, itemsService.addItem);
+app.post('/items/del', middleware.checkToken, itemsService.deleteItem);
 
 app.get('/user', middleware.checkToken, userService.getUserData);
 
