@@ -31,4 +31,11 @@ export interface IAddItemToOrder {
   price: number;
 }
 
+export interface IAddItem {
+  name: string;
+  description: string;
+  price: number;
+  stock: number;
+} 
+
 export interface IItemsState extends ImmutableObject<IItemsResponse> {}

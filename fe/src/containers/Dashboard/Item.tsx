@@ -17,6 +17,18 @@ const ItemWrapper = styled.div`
 
   .title {
     margin: 10px 0;
+    max-width: 70%;
+    white-space: no-wrap;
+  }
+
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .del-button {
+      color: ${({ theme }) => theme.color.red};
+    }
   }
 
   .price {
@@ -31,6 +43,8 @@ interface IItem {
   price: number;
   stock: number;
   onClick: () => void;
+  delClick: () => void;
+  isAdmin: boolean;
 }
 
 export const Item: React.FC<IItem> = ({
@@ -38,11 +52,16 @@ export const Item: React.FC<IItem> = ({
   description,
   price,
   stock,
-  onClick
+  onClick,
+  delClick,
+  isAdmin
 }) => {
   return (
     <ItemWrapper>
-      <H2 className="title">{name}</H2>
+      <div className="header">
+        <H2 className="title">{name}</H2>
+        {isAdmin && <TextButton className="del-button" onClick={delClick}>delete</TextButton>}
+      </div>
       <H3>{description}</H3>
       <H3 className="price">{price}$  &nbsp; &nbsp; Count: {stock}</H3>
       <TextButton onClick={onClick}>Add to order</TextButton>

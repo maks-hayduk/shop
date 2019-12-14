@@ -26,6 +26,10 @@ const itemsReducer = (state = initialState, action: IItemsctionTypes) => {
         .setIn(['meta', 'page'], action.payload.page)
         .setIn(['meta', 'perPage'], action.payload.perPage);
 
+    case ItemsActionTypeKeys.DELETE_ITEM_FULFILLED:
+      return state
+        .updateIn(['items'], val => val.filter(el => el.id !== action.meta));
+
     default:
       return state;
   }

@@ -9,6 +9,7 @@ export interface ILoginResponse {
   success: boolean;
   id: number;
   name: string;
+  role: string;
 }
 
 export interface IUserDataResponse {
@@ -23,6 +24,7 @@ export interface IAuthInitialState {
   id: number;
   name: string;
   email: string;
+  role: string;
 }
 
 

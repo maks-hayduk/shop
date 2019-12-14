@@ -9,12 +9,16 @@ import {
   selectItems,
   selectMetaData,
   handleChangePageAction,
-  addItemToOrderAction
+  addItemToOrderAction,
+  selectUserRole,
+  addItemAction,
+  deleteItemAction
 } from 'store';
 
 const mapStateToProps = (state: IStoreState) => ({
   items: selectItems(state),
-  meta: selectMetaData(state)
+  meta: selectMetaData(state),
+  userRole: selectUserRole(state)
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) =>
@@ -22,7 +26,9 @@ const mapDispatchToProps = (dispatch: Dispatch) =>
     {
       getItemsAction,
       handleChangePageAction,
-      addItemToOrderAction
+      addItemToOrderAction,
+      addItemAction,
+      deleteItemAction
     },
     dispatch
   );

@@ -8,7 +8,8 @@ const initialState: ImmutableObject<IAuthInitialState> = Immutable({
   success: false,
   id: 0,
   name: '',
-  email: ''
+  email: '',
+  role: ''
 });
 
 const authReducer = (state = initialState, action: IAuthActionTypes) => {

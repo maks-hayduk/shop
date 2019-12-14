@@ -49,7 +49,7 @@ const Wrapper = styled.div`
     }
 
     .your-order {
-      margin-left: 20px;
+      margin-right: 20px;
     }
   }
 
@@ -79,21 +79,6 @@ export const NavBarMenu: React.FC<INavBarMenu> = ({ userName, onLogOut }) => {
         <NavLink to="/">
           <H2 className="title">Shopify</H2>
         </NavLink>
-          <Formik
-            initialValues={{
-              search: ''
-            }}
-            onSubmit={() => undefined}
-          >{() => (
-            <Form>
-              <Field
-                component={InputField}
-                name="name"
-                placeholder="Search..."
-              />
-            </Form>
-          )}
-          </Formik>
       </div>
       <div className="right-side">
         {userName && <H3 className="user-name">{userName}</H3>}
@@ -108,11 +93,11 @@ export const NavBarMenu: React.FC<INavBarMenu> = ({ userName, onLogOut }) => {
           </>
         ) : (
           <>
-            <NavLink to={RouteConsts.Dashboard}>
-              <Button onClick={onLogOut}>Log out</Button>
-            </NavLink>
             <NavLink to={RouteConsts.Order}>
               <Button className="your-order">Your order</Button>
+            </NavLink>
+            <NavLink to={RouteConsts.Dashboard}>
+              <TextButton onClick={onLogOut}>Log out</TextButton>
             </NavLink>
           </>
         )}

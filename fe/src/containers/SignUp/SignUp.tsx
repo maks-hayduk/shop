@@ -4,6 +4,7 @@ import { Formik, Form, Field } from 'formik';
 import { InputField, Button, H2 } from 'components';
 import { styled } from 'theme';
 import { validationUtil } from 'utils';
+import { HandleSignupAction } from 'store';
 
 const Wrapper = styled.div`
   max-width: 450px;
@@ -27,7 +28,11 @@ const Wrapper = styled.div`
   }
 `;
 
-const SignUpForm = () => {
+interface ISignupForm {
+  handleSignupAction: HandleSignupAction;
+}
+
+const SignUpForm: React.FC<ISignupForm> = ({ handleSignupAction }) => {
   return (
     <Wrapper>
       <H2 className="title">Sign up to Shopify</H2>
@@ -37,7 +42,10 @@ const SignUpForm = () => {
           email: '',
           password: ''
         }}
-        onSubmit={() => undefined}
+        onSubmit={(values) => {
+          const { name, email, password } = values;
+          handleSignupAction(name, email, password);
+        }}
       >{({ isValid }) => (
         <Form>
           <Field

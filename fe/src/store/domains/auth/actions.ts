@@ -61,7 +61,7 @@ export const handleSignupAction: HandleSignupAction = (
   const state = getState();
 
   if (selectAuthSuccess(state)) {
-    dispatch(push('/login'))
+    dispatch(push('/auth'))
   }
 }
 
