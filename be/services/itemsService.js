@@ -83,6 +83,25 @@ class ItemsService {
     })
   }
 
+  updateItem = (req, res) => {
+    const { id } = req.query;
+    const { role } = req.decoded;
+    const { name, description, price, stock } = req.body;
+    if (role !== 'admin') {
+      res.status.send('Not allowed')
+    }
+
+    pool.query('UPDATE items SET name=$1, description=$2, price=$3, stock=$4 WHERE id=$5', [name, description, price, stock, id], (error, result) => {
+      if (error) {
+        res.status(400).send(error);
+      }
+
+      res.status(201).send({
+        message: 'Item was updated'
+      });
+    })
+  }
+
   addItemToOrders = (req, res) => {
     const { id } = req.decoded;
     const { itemId } = req.body;
