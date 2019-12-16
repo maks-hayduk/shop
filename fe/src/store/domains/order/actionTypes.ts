@@ -1,4 +1,5 @@
 import { IPromiseAction } from 'types';
+import { ILogOutActionType } from 'store';
 
 export enum OrderActionTypeKeys {
   GET_ORDER = 'order/GET_ORDER',
@@ -14,4 +15,5 @@ export interface IGetOrderFulfilledActioType
 
 export type IOrderActionTypes =
   | IGetOrderActionType
-  | IGetOrderFulfilledActioType;
+  | IGetOrderFulfilledActioType
+  | ILogOutActionType;

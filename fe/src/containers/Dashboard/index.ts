@@ -12,7 +12,8 @@ import {
   addItemToOrderAction,
   selectUserRole,
   addItemAction,
-  deleteItemAction
+  deleteItemAction,
+  updateItemAction
 } from 'store';
 
 const mapStateToProps = (state: IStoreState) => ({
@@ -28,7 +29,8 @@ const mapDispatchToProps = (dispatch: Dispatch) =>
       handleChangePageAction,
       addItemToOrderAction,
       addItemAction,
-      deleteItemAction
+      deleteItemAction,
+      updateItemAction
     },
     dispatch
   );

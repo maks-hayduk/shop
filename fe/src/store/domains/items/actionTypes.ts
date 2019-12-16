@@ -1,6 +1,6 @@
 import { IPromiseAction } from 'types';
 
-import { IItemsResponse, ISetMetaData, IAddItemToOrder, IAddItem } from './types';
+import { IItemsResponse, ISetMetaData, IAddItemToOrder, IItemModel, IItem } from './types';
 
 export enum ItemsActionTypeKeys {
   GET_ITEMS = 'items/GET_ITEMS',
@@ -24,7 +24,17 @@ export enum ItemsActionTypeKeys {
   DELETE_ITEM = 'items/DELETE_ITEM',
   DELETE_ITEM_FULFILLED = 'items/DELETE_ITEM_FULFILLED',
   DELETE_ITEM_REJECTED = 'items/DELETE_ITEM_REJECTED',
+
+  UPDATE_ITEM = 'items/UPDATE_ITEM',
+  UPDATE_ITEM_FULFILLED = 'items/UPDATE_ITEM_FULFILLED',
+  UPDATE_ITEM_REJECTED = 'items/UPDATE_ITEM_REJECTED'
 }
+
+export interface IUpdateItemActionType
+  extends IPromiseAction<ItemsActionTypeKeys.UPDATE_ITEM, Promise<{}>, IItem> {}
+
+export interface IUpdateItemFilfilledActionType
+  extends IPromiseAction<ItemsActionTypeKeys.UPDATE_ITEM_FULFILLED, {}, IItem> {}
 
 export interface IDeleteItemActionType
   extends IPromiseAction<ItemsActionTypeKeys.DELETE_ITEM, Promise<{}>, number> {}
@@ -33,10 +43,10 @@ export interface IDeleteItemFulfilledActionType
   extends IPromiseAction<ItemsActionTypeKeys.DELETE_ITEM_FULFILLED, {}, number> {}
 
 export interface IAddItemActionType
-  extends IPromiseAction<ItemsActionTypeKeys.ADD_ITEM, Promise<{}>, IAddItem> {}
+  extends IPromiseAction<ItemsActionTypeKeys.ADD_ITEM, Promise<{}>, IItemModel> {}
 
 export interface IAddItemFulfilledActionType
-  extends IPromiseAction<ItemsActionTypeKeys.ADD_ITEM_FULFILLED, {}, IAddItem> {}
+  extends IPromiseAction<ItemsActionTypeKeys.ADD_ITEM_FULFILLED, {}, IItemModel> {}
 
 export interface IGetItemsActionType
   extends IPromiseAction<ItemsActionTypeKeys.GET_ITEMS, Promise<IItemsResponse>> {}
@@ -70,4 +80,6 @@ export type IItemsctionTypes =
   | IAddItemActionType
   | IAddItemFulfilledActionType
   | IDeleteItemActionType
-  | IDeleteItemFulfilledActionType;
+  | IDeleteItemFulfilledActionType
+  | IUpdateItemFilfilledActionType
+  | IUpdateItemActionType;

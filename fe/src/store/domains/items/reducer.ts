@@ -20,6 +20,19 @@ const itemsReducer = (state = initialState, action: IItemsctionTypes) => {
         .setIn(['items'], action.payload.items)
         .setIn(['meta', 'pages'], action.payload.meta.pages)
         .setIn(['meta', 'total'], action.payload.meta.total);
+    
+    case ItemsActionTypeKeys.UPDATE_ITEM_FULFILLED: {
+      const { id } = action.meta!;
+      const items = state.items.map(el => {
+        if (el.id === id) {
+          return action.meta;
+        }
+        
+        return el;
+      });
+
+      return state.set('items', items);
+    }
 
     case ItemsActionTypeKeys.SET_META_DATA:
       return state

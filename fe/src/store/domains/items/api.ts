@@ -1,5 +1,5 @@
 import { apiClientService } from 'services';
-import { IAddItem } from './types';
+import { IItemModel } from './types';
 
 export const getPaginationItems = (page: number, perPage: number) =>
   apiClientService.get(`/pag/items?page=${page}&count=${perPage}`);
@@ -10,6 +10,8 @@ export const addItemToOrder = (itemId: number) =>
 export const delItemFromOrder = (itemId: number) =>
   apiClientService.post('/order/delete', { data: { itemId }});
 
-export const addItem = (data: IAddItem) => apiClientService.post('/add/items', { data });
+export const addItem = (data: IItemModel) => apiClientService.post('/items/add', { data });
 
 export const deleteItem = (itemId: number) => apiClientService.post(`/items/del?itemid=${itemId}`);
+
+export const updateItem = (itemId: number, data: IItemModel) => apiClientService.put(`/items/update?id=${itemId}`, { data });

@@ -6,7 +6,9 @@ import { bindActionCreators, Dispatch } from 'redux';
 import {
   IStoreState,
   selectOrder,
-  delItemFromOrderAction
+  delItemFromOrderAction,
+  getOrderAction,
+  
 } from 'store';
 
 const mapStateToProps = (state: IStoreState) => ({
@@ -16,7 +18,8 @@ const mapStateToProps = (state: IStoreState) => ({
 const mapDispatchToProps = (dispatch: Dispatch) =>
   bindActionCreators(
     {
-      delItemFromOrderAction
+      delItemFromOrderAction,
+      getOrderAction
     },
     dispatch
   );

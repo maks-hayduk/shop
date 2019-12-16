@@ -2,11 +2,12 @@ import * as React from 'react';
 import ReactModal from 'react-modal';
 
 import { Pagination, Button } from 'components';
-import { GetItems, IItem, IMetaDataSelect, HandleChangePageAction, AddItemToOrderAction, AddItemAction, DeleteItemAction } from 'store';
+import { GetItems, IItem, IMetaDataSelect, HandleChangePageAction, AddItemToOrderAction, AddItemAction, DeleteItemAction, UpdateItemAction } from 'store';
 import { styled } from 'theme';
 
 import { Item } from './Item';
 import { AddItemModal } from './AddItemModalContent';
+import { UpdateItemModal } from './UpdItemModalContent';
 
 const customStyles = {
   content: {
@@ -34,6 +35,17 @@ const Wrapper = styled.div`
     justify-content: center;
     margin: 30px 0;
   }
+
+  .add-item {
+    width: 250px;
+  }
+
+  .add-item-button {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
 `;
 
 interface IDashboard {
@@ -45,6 +57,7 @@ interface IDashboard {
   userRole: string;
   addItemAction: AddItemAction;
   deleteItemAction: DeleteItemAction;
+  updateItemAction: UpdateItemAction;
 }
 
 const Dashboard: React.FC<IDashboard> = ({
@@ -55,9 +68,12 @@ const Dashboard: React.FC<IDashboard> = ({
   addItemToOrderAction,
   userRole,
   addItemAction,
-  deleteItemAction
+  deleteItemAction,
+  updateItemAction
 }) => {
   const [isOpen, setIsOpen] = React.useState(false);
+  const [modalType, setModalType] = React.useState();
+  const [updItemId, setUpdItemId] = React.useState(0);
 
   React.useEffect(() => {
     getItemsAction(1, meta.perPage);
@@ -71,14 +87,32 @@ const Dashboard: React.FC<IDashboard> = ({
             isOpen={isOpen}
             style={customStyles}
             onRequestClose={() => setIsOpen(false)}
-          >
+          >{modalType === 'add_item' ? (
             <AddItemModal
               setIsOpen={setIsOpen}
               addItemAction={addItemAction}
               getNewItems={() => getItemsAction(1, meta.perPage)}
             />
+          ) : modalType === 'upd_item' ? (
+            <UpdateItemModal
+              setIsOpen={setIsOpen}
+              updateItemAction={updateItemAction}
+              itemId={updItemId}
+              itemInfo={items ? items.find(el => el.id === updItemId) : undefined}
+            />
+          ) : null}
           </ReactModal>
-          <Button onClick={() => setIsOpen(true)}>Add item</Button>
+          <div className="add-item-button">
+            <Button 
+              onClick={() => {
+                setModalType('add_item')
+                setIsOpen(true);
+              }}
+              className="add-item"
+            >
+              Add item
+            </Button>
+          </div>
         </>
       )}
       <div className="items-wrapper">
@@ -91,6 +125,11 @@ const Dashboard: React.FC<IDashboard> = ({
               stock={el.stock}
               onClick={() => addItemToOrderAction(el.id, el)}
               delClick={() => deleteItemAction(el.id)}
+              updClick={() => {
+                setModalType('upd_item');
+                setUpdItemId(el.id);
+                setIsOpen(true);
+              }}
               isAdmin={userRole === 'admin'}
             />
           </div>

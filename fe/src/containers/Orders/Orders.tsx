@@ -3,7 +3,7 @@ import * as React from 'react';
 import { styled } from 'theme';
 
 import { Item } from './Item';
-import { IOrderSelect, DeleteItemFromOrderAction, IOrderState } from 'store';
+import { IOrderSelect, DeleteItemFromOrderAction, IOrderState, GetOrderAction } from 'store';
 
 const Wrapper = styled.div`
   max-width: 90%;
@@ -17,9 +17,15 @@ const Wrapper = styled.div`
 interface IOrderComponent {
   order: IOrderSelect;
   delItemFromOrderAction: DeleteItemFromOrderAction;
+  getOrderAction: GetOrderAction;
 }
 
-const OrderComponent: React.FC<IOrderComponent> = ({ order, delItemFromOrderAction }) => {
+const OrderComponent: React.FC<IOrderComponent> = ({ order, delItemFromOrderAction, getOrderAction }) => {
+
+  React.useEffect(() => {
+    getOrderAction()
+  }, []);
+
   return (
     <Wrapper>
       <div className="order">

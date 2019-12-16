@@ -9,19 +9,27 @@ import {
   IAddItemToOrderActionType,
   IDelItemFromOrderActionType,
   IAddItemActionType,
-  IDeleteItemActionType
+  IDeleteItemActionType,
+  IUpdateItemActionType
 } from './actionTypes';
 import * as api from './api';
 import { selectMetaData } from './selectors';
-import { IAddItem } from './types';
+import { IItemModel, IItem } from './types';
 
 export type GetItems = (page: number, perPage: number) => IGetItemsActionType;
 export type SetMetaData = (page: number, perPage: number) => ISetMetaDataActionType;
 export type HandleChangePageAction = (page: number) => IThunk<void>;
 export type AddItemToOrderAction = (itemId: number, el: any) => IAddItemToOrderActionType;
 export type DeleteItemFromOrderAction = (itemId: number) => IDelItemFromOrderActionType;
-export type AddItemAction = (data: IAddItem) => IAddItemActionType;
+export type AddItemAction = (data: IItemModel) => IAddItemActionType;
 export type DeleteItemAction = (itemId: number) => IDeleteItemActionType;
+export type UpdateItemAction = (itemId: number, data: IItem) => IUpdateItemActionType;
+
+export const updateItemAction: UpdateItemAction = (itemId, data) => ({
+  type: ItemsActionTypeKeys.UPDATE_ITEM,
+  payload: api.updateItem(itemId, data),
+  meta: data
+})
 
 export const deleteItemAction: DeleteItemAction = (itemId) => ({
   type: ItemsActionTypeKeys.DELETE_ITEM,

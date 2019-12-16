@@ -31,7 +31,7 @@ export interface IAddItemToOrder {
   price: number;
 }
 
-export interface IAddItem {
+export interface IItemModel {
   name: string;
   description: string;
   price: number;

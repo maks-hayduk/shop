@@ -4,7 +4,7 @@ import { Formik, Form, Field } from 'formik';
 import { InputField, Button, H2, TextButton } from 'components';
 import { styled } from 'theme';
 import { validationUtil } from 'utils';
-import { AddItemAction } from 'store';
+import { UpdateItemAction, IItem } from 'store';
 
 const Wrapper = styled.div`
   width: 300px;
@@ -30,26 +30,28 @@ const Wrapper = styled.div`
   }
 `;
 
-interface ISignupForm {
-  addItemAction: AddItemAction;
+interface IUpdateItemModal {
+  updateItemAction: UpdateItemAction;
   setIsOpen: (val: boolean) => void;
-  getNewItems: () => void;
+  itemId: number;
+  itemInfo: IItem | undefined;
 }
 
-export const AddItemModal: React.FC<ISignupForm> = ({ addItemAction, setIsOpen, getNewItems }) => {
+export const UpdateItemModal: React.FC<IUpdateItemModal> = ({ updateItemAction, setIsOpen, itemId, itemInfo }) => {
+  
   return (
     <Wrapper>
-      <H2 className="title">Add item</H2>
+      <H2 className="title">Update item</H2>
       <Formik
-        initialValues={{
+        initialValues={itemInfo || {
           name: '',
           description: '',
           price: 0,
           stock: 0
         }}
+        enableReinitialize={true}
         onSubmit={async (values) => {
-          await addItemAction(values);
-          await getNewItems();
+          await updateItemAction(itemId, {id: itemId, ...values});
           setIsOpen(false);
         }}
       >{({ isValid }) => (
@@ -83,7 +85,7 @@ export const AddItemModal: React.FC<ISignupForm> = ({ addItemAction, setIsOpen, 
             validate={validationUtil.required}
           />
           <div className="align-buttons">
-            <Button className="submit-button" type="submit">Add item</Button>
+            <Button className="submit-button" type="submit">Update item</Button>
             <TextButton className="submit-button" onClick={() => setIsOpen(false)}>Cancel</TextButton>
           </div>
         </Form>

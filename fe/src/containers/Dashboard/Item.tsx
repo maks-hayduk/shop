@@ -26,8 +26,16 @@ const ItemWrapper = styled.div`
     align-items: center;
     justify-content: space-between;
 
-    .del-button {
-      color: ${({ theme }) => theme.color.red};
+    .align-buttons {
+      display: flex;
+
+      .upd-button {
+        margin-right: 10px;
+      }
+
+      .del-button {
+        color: ${({ theme }) => theme.color.red};
+      }
     }
   }
 
@@ -44,6 +52,7 @@ interface IItem {
   stock: number;
   onClick: () => void;
   delClick: () => void;
+  updClick: () => void;
   isAdmin: boolean;
 }
 
@@ -54,13 +63,19 @@ export const Item: React.FC<IItem> = ({
   stock,
   onClick,
   delClick,
+  updClick,
   isAdmin
 }) => {
   return (
     <ItemWrapper>
       <div className="header">
         <H2 className="title">{name}</H2>
-        {isAdmin && <TextButton className="del-button" onClick={delClick}>delete</TextButton>}
+        {isAdmin && (
+          <div className="align-buttons">
+            <TextButton className="upd-button" onClick={updClick}>upd</TextButton>
+            <TextButton className="del-button" onClick={delClick}>del</TextButton>
+          </div>
+        )}
       </div>
       <H3>{description}</H3>
       <H3 className="price">{price}$  &nbsp; &nbsp; Count: {stock}</H3>

@@ -1,6 +1,6 @@
 import Immutable, { ImmutableObject } from 'seamless-immutable';
 
-import { ItemsActionTypeKeys, IItemsctionTypes } from 'store';
+import { ItemsActionTypeKeys, IItemsctionTypes, AuthActionTypeKeys } from 'store';
 
 import { OrderActionTypeKeys, IOrderActionTypes } from './actionTypes';
 import { IOrderInitialState } from './types';
@@ -31,6 +31,9 @@ const ordersReducer = (state = initialState, action: IOrderActionTypes | IItemsc
         return ({...el, count: +el.count - 1})
       });
     }
+
+    case AuthActionTypeKeys.LOG_OUT:
+      return state;
 
     default:
       return state;
