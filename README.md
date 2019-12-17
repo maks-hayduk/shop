@@ -17,4 +17,6 @@ SECRET_KEY=
 
 Run npm start in both `fe` and `be` folders
 
+Create db using PostgreSQL and `db_scheme.png`
+
 ##### Made by Maks Hayduk
